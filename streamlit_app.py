@@ -8,15 +8,15 @@ from groq import Groq
 # Load environment variables
 # -----------------------------------------------------------------------------
 load_dotenv()
-IG_USERNAME = os.getenv("IG_USERNAME")
-IG_PASSWORD = os.getenv("IG_PASSWORD")
+# IG_USERNAME = os.getenv("IG_USERNAME")
+# IG_PASSWORD = os.getenv("IG_PASSWORD")
 
 # Accessing API key
 groq_api_key = st.secrets["GROQ_API_KEY"]
 
 # Accessing Instagram credentials (from a section)
-ig_username = st.secrets["instagram"]["username"]
-ig_password = st.secrets["instagram"]["password"]
+IG_USERNAME = st.secrets["instagram"]["username"]
+IG_PASSWORD = st.secrets["instagram"]["password"]
 
 st.write("Secrets loaded successfully! (But not displaying them for security reasons.)")
 
