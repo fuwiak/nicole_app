@@ -12,11 +12,21 @@ load_dotenv()
 # IG_PASSWORD = os.getenv("IG_PASSWORD")
 
 # Accessing API key
-groq_api_key = st.secrets["GROQ_API_KEY"]
+# groq_api_key = st.secrets["GROQ_API_KEY"]
 
-# Accessing Instagram credentials (from a section)
-IG_USERNAME = st.secrets["instagram"]["username"]
-IG_PASSWORD = st.secrets["instagram"]["password"]
+# # Accessing Instagram credentials (from a section)
+# IG_USERNAME = st.secrets["instagram"]["username"]
+# IG_PASSWORD = st.secrets["instagram"]["password"]
+
+# Accessing API key safely
+groq_api_key = st.secrets.get("GROQ_API_KEY", None)
+if not groq_api_key:
+    st.error("GROQ_API_KEY is missing. Please add it to Streamlit Secrets.")
+
+# Accessing Instagram credentials safely
+IG_USERNAME = st.secrets.get("instagram", {}).get("username", None)
+IG_PASSWORD = st.secrets.get("instagram", {}).get("password", None)
+
 
 st.write("Secrets loaded successfully! (But not displaying them for security reasons.)")
 
@@ -123,8 +133,8 @@ def main():
         st.session_state.selected_post_pk = None
 
     st.sidebar.header("Instagram Settings")
-    username = st.sidebar.text_input("Instagram username", value="mindful_daily")
-    num_posts = st.sidebar.number_input("Number of posts to fetch", min_value=1, max_value=20, value=5)
+    username = st.sidebar.text_input("Instagram username", value="the.mindfuldaily")
+    num_posts = st.sidebar.number_input("Number of posts to fetch", min_value=1, max_value=20, value=1)
 
     # Button to fetch Instagram posts
     # We'll store the results in st.session_state so we don't lose them on rerun
